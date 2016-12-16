@@ -1,3 +1,4 @@
+
 /*****************************************************************************
  * Monty Hall
  * 
@@ -38,8 +39,7 @@ public class MontyHall {
         for (int i = 0; i < number_of_doors; i++) {
             if (i == prize_door) {
                 doors[i] = 1;
-            }
-            else {
+            } else {
                 doors[i] = 0;
             }
         }
@@ -49,25 +49,22 @@ public class MontyHall {
     public static int getUserGuess(int number_of_doors) {
         Scanner scanner = new Scanner(System.in);
         for (int num_tries = 0; num_tries < 10; num_tries++) {
-            System.out.println(
-                "Please pick a door from 1 to " + number_of_doors);
+            System.out.println("Please pick a door from 1 to "
+                + number_of_doors);
             try {
                 int user_guess = scanner.nextInt();
                 if (user_guess < 1) {
                     System.out.println("That guess (" + user_guess
-                            + ") is too low!  Try again.");
-                }
-                else if (user_guess > number_of_doors) {
+                        + ") is too low!  Try again.");
+                } else if (user_guess > number_of_doors) {
                     System.out.println("That guess (" + user_guess
-                            + ") is too high!  Try again.");
-                }
-                else {
+                        + ") is too high!  Try again.");
+                } else {
                     return user_guess - 1;
                 }
-            }
-            catch (InputMismatchException e) {
-                System.out
-                        .println("Sorry, that wasn't valid.  Please enter an integer.");
+            } catch (InputMismatchException e) {
+                System.out.println(
+                    "Sorry, that wasn't valid.  Please enter an integer.");
             }
         }
         System.out.println("Too many errors reading the user guess.  Exiting.");
@@ -76,12 +73,11 @@ public class MontyHall {
     }
 
     private static int getDoorToKeepShut(int number_of_doors, int prize_door,
-            int user_guess) {
+                                         int user_guess) {
         int door_to_keep_shut;
         if (user_guess != prize_door) {
             door_to_keep_shut = prize_door;
-        }
-        else {
+        } else {
             door_to_keep_shut = chooseRandomInt(number_of_doors - 1);
             if (door_to_keep_shut >= prize_door) {
                 door_to_keep_shut++;
@@ -91,20 +87,19 @@ public class MontyHall {
     }
 
     private static void openOtherDoors(int[] doors, int user_guess,
-            int door_to_keep_shut) {
+                                       int door_to_keep_shut) {
         for (int i = 0; i < doors.length; i++) {
             if (i == user_guess) {
                 System.out.println("Monty Hall does not open door " + (i + 1)
-                                   + " since that's the door the user chose. ");
+                    + " since that's the door the user chose. ");
             } else if (i == door_to_keep_shut) {
                 System.out.println("Monty Hall keeps door " + (i + 1)
-                                   + " closed.");
+                    + " closed.");
             } else {
                 System.out.print("Monty Hall opens door " + (i + 1) + ". ");
                 if (doors[i] == 0) {
                     System.out.println("There is nothing behind it.");
-                }
-                else {
+                } else {
                     // This should never happen, as long as
                     // door_to_keep_shut was chosen properly.
                     System.out.println("He accidentally reveated the prize!");
@@ -117,27 +112,23 @@ public class MontyHall {
         Scanner scanner = new Scanner(System.in);
         for (int num_tries = 0; num_tries < 10; num_tries++) {
             System.out.println("Would you like to stick to door "
-                    + (user_guess + 1)
-                    + " or would you like to switch to door "
-                    + (door_to_keep_shut + 1) + "?");
+                + (user_guess + 1) + " or would you like to switch to door "
+                + (door_to_keep_shut + 1) + "?");
             try {
                 int new_guess = scanner.nextInt();
-                if (new_guess != user_guess + 1 &&
-                    new_guess != door_to_keep_shut + 1) {
+                if (new_guess != user_guess + 1
+                    && new_guess != door_to_keep_shut + 1) {
                     System.out.println("Please pick either " + (user_guess + 1)
                         + " or " + (door_to_keep_shut + 1) + ".  Try again.");
-                }
-                else {
+                } else {
                     return new_guess - 1;
                 }
-            }
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println(
                     "Sorry, that wasn't valid.  Please enter an integer.");
             }
         }
-        System.out.println(
-            "Too many errors reading the user guess.  Exiting.");
+        System.out.println("Too many errors reading the user guess.  Exiting.");
         System.exit(1);
         return -1;
     }
@@ -148,24 +139,21 @@ public class MontyHall {
             System.out.print("Congratulations, you won the prize! ");
             if (new_guess == user_guess) {
                 System.out.println("Good thing you didn't switch doors!");
-            }
-            else {
+            } else {
                 System.out.println("Good thing you switched doors!");
             }
-        }
-        else {
+        } else {
             System.out.print("Sorry, you didn't win the prize! ");
             if (new_guess == user_guess) {
                 System.out.println("Guess you shoud have switched doors!");
-            }
-            else {
+            } else {
                 System.out.println("Guess you shouldn't have switched doors!");
             }
         }
     }
 
     public static boolean playOneGame(int number_of_doors,
-            boolean shouldSimulate) {
+                                      boolean shouldSimulate) {
         // Create the set of doors
         int prize_door = chooseRandomInt(number_of_doors);
         int doors[] = initializeDoors(number_of_doors, prize_door);
@@ -173,18 +161,17 @@ public class MontyHall {
         int user_guess;
         if (shouldSimulate) {
             user_guess = chooseRandomInt(number_of_doors);
-            System.out.println("The simulation chooses door " +
-                               (user_guess + 1));
-        }
-        else {
+            System.out.println("The simulation chooses door "
+                + (user_guess + 1));
+        } else {
             user_guess = getUserGuess(number_of_doors);
             if (user_guess < 0) {
                 return false;
             }
         }
 
-        int door_to_keep_shut = getDoorToKeepShut(number_of_doors,
-                                                  prize_door, user_guess);
+        int door_to_keep_shut = getDoorToKeepShut(number_of_doors, prize_door,
+                                                  user_guess);
         openOtherDoors(doors, user_guess, door_to_keep_shut);
         int new_guess;
         if (shouldSimulate) {
@@ -197,12 +184,12 @@ public class MontyHall {
     }
 
     public static void playManyGames(int number_of_doors, int number_of_games,
-            boolean shouldSimulate) {
+                                     boolean shouldSimulate) {
         int total_number_of_games = 0;
         int number_of_times_should_have_switched = 0;
         for (int i = 0; i < number_of_games; i++) {
             boolean should_have_switched = playOneGame(number_of_doors,
-                shouldSimulate);
+                                                       shouldSimulate);
             total_number_of_games++;
             if (should_have_switched) {
                 number_of_times_should_have_switched++;
@@ -215,8 +202,8 @@ public class MontyHall {
 
     public static void main(String[] args) {
         MontyHall.playOneGame(3, false);
-        //MontyHall.playManyGames(3, 100, true);
-        //MontyHall.playManyGames(100, 100, true);
+        // MontyHall.playManyGames(3, 100, true);
+        // MontyHall.playManyGames(100, 100, true);
     }
 
 }
