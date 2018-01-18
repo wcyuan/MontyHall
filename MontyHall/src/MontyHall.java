@@ -57,7 +57,11 @@
  * stores is in terms of the array index.  So the value will be 0, 1, or 2, not
  * 1, 2, or 3.  This is also true of the variable user_guess, which keeps track
  * of which door the user guessed.  
+ *
+ * https://repl.it/@conan/MontyHall
+ * https://github.com/wcyuan/MontyHall/
  */
+
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -141,6 +145,7 @@ public class MontyHall {
                 // not an integer.
                 System.out.println(
                     "Sorry, that wasn't valid.  Please enter an integer.");
+                scanner.next();
             }
         }
         System.out.println("Too many errors reading the user guess.  Exiting.");
@@ -258,6 +263,7 @@ public class MontyHall {
             } catch (InputMismatchException e) {
                 System.out.println(
                     "Sorry, that wasn't valid.  Please enter an integer.");
+                scanner.next();
             }
         }
         System.out.println("Too many errors reading the user guess.  Exiting.");
